@@ -5,6 +5,19 @@ export const getGoals = async () => {
   return response.json();
 };
 
+export const deleteGoal = async (
+  goalId
+) => {
+  const response = await fetch(
+    `${API_URL}/${goalId}`,
+    {
+      method: "DELETE",
+    }
+  );
+
+  return response.json();
+};
+
 export const createGoal = async (goal) => {
   const response = await fetch(API_URL, {
     method: "POST",

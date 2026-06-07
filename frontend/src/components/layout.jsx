@@ -26,7 +26,6 @@ function Layout({ children }) {
         <nav className="flex flex-col gap-2">
           {navItem("/", "Dashboard")}
           {navItem("/goals", "Goals")}
-          {navItem("/roadmap", "Roadmap")}
         </nav>
       </aside>
 

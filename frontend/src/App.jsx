@@ -10,15 +10,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/goals" element={<Goals />} />
-        <Route path="/roadmap" element={<Roadmap />} />
+
+        <Route
+          path="/roadmap/:goalId"
+          element={<Roadmap />}
+        />
       </Routes>
     </BrowserRouter>
   );
 }
-
-<Route
-  path="/roadmap"
-  element={<Roadmap />}
-/>
 
 export default App;

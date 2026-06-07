@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import { getTopics } from "../services/topicsApi";
-import { getGoals } from "../services/goalsApi";
 import { updateTopicStatus }
   from "../services/topicProgressApi";
 
+import { useParams } from "react-router-dom";
+
 function Roadmap() {
-  const [goals, setGoals] = useState([]);
-  const [selectedGoal, setSelectedGoal] = useState("");
+  const { goalId } = useParams();
   const [topics, setTopics] = useState([]);
 
   const toggleTopic = async (
@@ -21,22 +21,18 @@ function Roadmap() {
 
   loadRoadmap();
 };
-  useEffect(() => {
-    loadGoals();
-  }, []);
+useEffect(() => {
+  if (goalId) {
+    loadRoadmap();
+  }
+}, [goalId]);
 
-  const loadGoals = async () => {
-    const data = await getGoals();
-    setGoals(data);
-  };
+    const loadRoadmap = async () => {
+        const data =
+            await getTopics(goalId);
 
-  const loadRoadmap = async () => {
-    if (!selectedGoal) return;
-
-    const data = await getTopics(selectedGoal);
-
-    setTopics(data);
-  };
+        setTopics(data);
+    };
 
   return (
     <Layout>
@@ -45,33 +41,7 @@ function Roadmap() {
       </h1>
 
       <div className="flex gap-3">
-        <select
-          className="border p-2 rounded"
-          value={selectedGoal}
-          onChange={(e) =>
-            setSelectedGoal(e.target.value)
-          }
-        >
-          <option value="">
-            Select Goal
-          </option>
-
-          {goals.map((goal) => (
-            <option
-              key={goal.id}
-              value={goal.id}
-            >
-              {goal.title}
-            </option>
-          ))}
-        </select>
-
-        <button
-          className="bg-black text-white px-4 py-2 rounded"
-          onClick={loadRoadmap}
-        >
-          Load Roadmap
-        </button>
+      
       </div>
 
       <div className="mt-8">

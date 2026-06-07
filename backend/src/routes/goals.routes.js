@@ -47,5 +47,26 @@ router.post("/", async (req, res) => {
     });
   }
 });
+router.delete("/:goalId", async (req, res) => {
+  try {
+    const { goalId } = req.params;
 
+    const { error } = await supabase
+      .from("goals")
+      .delete()
+      .eq("id", goalId);
+
+    if (error) {
+      return res.status(400).json(error);
+    }
+
+    res.json({
+      message: "Goal deleted successfully",
+    });
+  } catch (err) {
+    res.status(500).json({
+      error: err.message,
+    });
+  }
+});
 module.exports = router;
